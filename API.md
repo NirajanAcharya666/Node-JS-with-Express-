@@ -22,7 +22,7 @@ In case of web API powered website development, there are two major steps.
 ```
 The proper front end is built based on the API. So, it is most often called client side rendered whereas Dynamic website called Server side rendered.
 
-The main advantage of API is that it is not consumed by browser, it can be consumed by IOS App and Android App.
+The main advantage of API is that it is not only consumed by browser, it can be consumed by IOS App and Android App.
 
 suppose lets take a example: 
 
