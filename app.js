@@ -126,22 +126,26 @@ const deleteMovie=(req,res)=>{
         })
     })
 }
+const moviesRouter = express.Router();
 
+// app.get('/api/v1/movies', getAllMovies);
+// app.get('/api/v1/movies/:id',getMovie);
+// app.post('/api/v1/movies',createMovie);
+// app.put('/api/v1/movies/:id',updateMovie );
+// app.delete('/api/v1/movies/:id',deleteMovie);
 
-app.get('/api/v1/movies', getAllMovies);
-app.get('/api/v1/movies/:id',getMovie);
-app.post('/api/v1/movies',createMovie);
-app.put('/api/v1/movies/:id',updateMovie );
-app.delete('/api/v1/movies/:id',deleteMovie);
-
-app.route('/api/v1/movies')
+moviesRouter.route('/')
         .get(getAllMovies)
         .post(createMovie)
 
-app.route('/api/v1/movies/:id')
+moviesRouter.route('/:id')
     .get(getMovie)
     .put(updateMovie)
     .delete(deleteMovie)
+
+//use of router middleware
+app.use('/api/v1/movies',moviesRouter)
+
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
