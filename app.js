@@ -4,8 +4,20 @@ let app = express();
 
 const port = 8000;
 
+
+
+const logger = function(req,res, next){
+    console.log("custom middleware is called");
+    next()
+}
 // Middleware to parse JSON bodies
 app.use(express.json());
+//custom middleware 
+app.use(logger)
+app.use((req,res,next)=>{
+req.requestedAt= new Date().toISOString();
+next ();
+})
 
 let movies = JSON.parse(fs.readFileSync('./data/movies.json'));
 
@@ -13,7 +25,9 @@ let movies = JSON.parse(fs.readFileSync('./data/movies.json'));
 const getAllMovies= (req, res) => {
     res.status(200).json({
         status: "success",
+        requestedAt: req.requestedAt,
         length: movies.length,
+        
         data: {
             movies: movies
         }
