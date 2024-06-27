@@ -1,0 +1,22 @@
+{
+  "name": "node-js-with-express-",
+  "version": "1.0.0",
+  "description": "This Node JS revision",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nirajanacharya/Node-JS-with-Express-.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nirajanacharya/Node-JS-with-Express-/issues"
+  },
+  "homepage": "https://github.com/nirajanacharya/Node-JS-with-Express-#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
