@@ -1,9 +1,9 @@
 const express = require('express');
+const morgan = require('morgan')
 const fs = require('fs');
 let app = express();
 
 const port = 8000;
-
 
 
 const logger = function(req,res, next){
@@ -14,6 +14,11 @@ const logger = function(req,res, next){
 app.use(express.json());
 //custom middleware 
 app.use(logger)
+
+//third party middleware
+app.use(morgan('dev'));
+
+//custom middleware 
 app.use((req,res,next)=>{
 req.requestedAt= new Date().toISOString();
 next ();
