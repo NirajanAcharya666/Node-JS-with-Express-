@@ -9,8 +9,8 @@ app.use(express.json());
 
 let movies = JSON.parse(fs.readFileSync('./data/movies.json'));
 
-// Get request
-app.get('/api/v1/movies', (req, res) => {
+//route parameter function 
+const getAllMovies= (req, res) => {
     res.status(200).json({
         status: "success",
         length: movies.length,
@@ -18,10 +18,9 @@ app.get('/api/v1/movies', (req, res) => {
             movies: movies
         }
     });
-});
+}
 
-//Get request with route parameter
-app.get('/api/v1/movies/:id', (req, res) => {
+const getMovie=(req, res) => {
     let id = +req.params.id;
     let movie = movies.find(el => el.id === id);
 
@@ -38,10 +37,9 @@ app.get('/api/v1/movies/:id', (req, res) => {
             movie: movie
         }
     });
-});
+}
 
-// Post request
-app.post('/api/v1/movies', (req, res) => {
+const createMovie= (req, res) => {
     const newID = movies[movies.length - 1].id + 1;
     const newMovie = Object.assign({ id: newID }, req.body);
     movies.push(newMovie);
@@ -59,10 +57,9 @@ app.post('/api/v1/movies', (req, res) => {
             }
         });
     });
-});
+}
 
-// Put request
-app.put('/api/v1/movies/:id', (req, res) => {
+const updateMovie=(req, res) => {
     let id = +req.params.id;
     let movieToUpdate = movies.find(el => el.id === id);
 
@@ -88,11 +85,9 @@ app.put('/api/v1/movies/:id', (req, res) => {
             }
         });
     });
-});
+}
 
-// delete request
-
-app.delete('/api/v1/movies/:id',(req,res)=>{
+const deleteMovie=(req,res)=>{
     let id =+req.params.id;
     let movieToDelete= movies.find(el=>el.id===id)
     if(!movieToDelete){
@@ -111,7 +106,24 @@ app.delete('/api/v1/movies/:id',(req,res)=>{
             }
         })
     })
-})
+}
+
+
+app.get('/api/v1/movies', getAllMovies);
+app.get('/api/v1/movies/:id',getMovie);
+app.post('/api/v1/movies',createMovie);
+app.put('/api/v1/movies/:id',updateMovie );
+app.delete('/api/v1/movies/:id',deleteMovie);
+
+app.route('/api/v1/movies')
+        .get(getAllMovies)
+        .post(createMovie)
+
+app.route('/api/v1/movies/:id')
+    .get(getMovie)
+    .put(updateMovie)
+    .delete(deleteMovie)
+
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
 });
